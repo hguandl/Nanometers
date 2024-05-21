@@ -1,0 +1,757 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8335BE4D2BFCE67600DE244E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE4C2BFCE67600DE244E /* ContentView.swift */; };
+		8335BE512BFCE67600DE244E /* ViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE502BFCE67600DE244E /* ViewControllerRepresentable.swift */; };
+		8335BE542BFCE67600DE244E /* Synth.aif in Resources */ = {isa = PBXBuildFile; fileRef = 8335BE532BFCE67600DE244E /* Synth.aif */; };
+		8335BE562BFCE67600DE244E /* SimplePlayEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE552BFCE67600DE244E /* SimplePlayEngine.swift */; };
+		8335BE592BFCE67600DE244E /* MIDIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE582BFCE67600DE244E /* MIDIManager.swift */; };
+		8335BE5B2BFCE67600DE244E /* TypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE5A2BFCE67600DE244E /* TypeAliases.swift */; };
+		8335BE5E2BFCE67600DE244E /* StringHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE5D2BFCE67600DE244E /* StringHelpers.swift */; };
+		8335BE612BFCE67600DE244E /* AudioUnitHostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE602BFCE67600DE244E /* AudioUnitHostModel.swift */; };
+		8335BE632BFCE67600DE244E /* AudioUnitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE622BFCE67600DE244E /* AudioUnitViewModel.swift */; };
+		8335BE652BFCE67600DE244E /* NanometersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE642BFCE67600DE244E /* NanometersApp.swift */; };
+		8335BE682BFCE67600DE244E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8335BE672BFCE67600DE244E /* Preview Assets.xcassets */; };
+		8335BE6A2BFCE67700DE244E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8335BE692BFCE67700DE244E /* Assets.xcassets */; };
+		8335BE712BFCE67700DE244E /* NanometersExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8335BE702BFCE67700DE244E /* NanometersExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8335BE762BFCE67700DE244E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8335BE752BFCE67700DE244E /* README.md */; };
+		8335BE7B2BFCE67700DE244E /* ParameterSpecBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE7A2BFCE67700DE244E /* ParameterSpecBase.swift */; };
+		8335BE7E2BFCE67700DE244E /* CrossPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE7D2BFCE67700DE244E /* CrossPlatform.swift */; };
+		8335BE802BFCE67700DE244E /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE7F2BFCE67700DE244E /* String+Utils.swift */; };
+		8335BE842BFCE67700DE244E /* NanometersExtensionAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE832BFCE67700DE244E /* NanometersExtensionAudioUnit.mm */; };
+		8335BE872BFCE67700DE244E /* NanometersExtensionAUProcessHelper.hpp in Resources */ = {isa = PBXBuildFile; fileRef = 8335BE862BFCE67700DE244E /* NanometersExtensionAUProcessHelper.hpp */; };
+		8335BE892BFCE67700DE244E /* NanometersExtensionBufferedAudioBus.hpp in Resources */ = {isa = PBXBuildFile; fileRef = 8335BE882BFCE67700DE244E /* NanometersExtensionBufferedAudioBus.hpp */; };
+		8335BE8D2BFCE67700DE244E /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE8C2BFCE67700DE244E /* Parameters.swift */; };
+		8335BE902BFCE67700DE244E /* NanometersExtensionDSPKernel.hpp in Resources */ = {isa = PBXBuildFile; fileRef = 8335BE8F2BFCE67700DE244E /* NanometersExtensionDSPKernel.hpp */; };
+		8335BE932BFCE67700DE244E /* NanometersExtensionMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE922BFCE67700DE244E /* NanometersExtensionMainView.swift */; };
+		8335BE952BFCE67700DE244E /* ParameterSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE942BFCE67700DE244E /* ParameterSlider.swift */; };
+		8335BE9A2BFCE67700DE244E /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8335BE992BFCE67700DE244E /* Base */; };
+		8335BE9C2BFCE67700DE244E /* ObservableAUParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE9B2BFCE67700DE244E /* ObservableAUParameter.swift */; };
+		8335BE9E2BFCE67700DE244E /* AudioUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE9D2BFCE67700DE244E /* AudioUnitViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8335BE722BFCE67700DE244E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8335BE412BFCE67600DE244E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8335BE6F2BFCE67700DE244E;
+			remoteInfo = NanometersExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8335BEA52BFCE67700DE244E /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8335BE712BFCE67700DE244E /* NanometersExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		8335BE492BFCE67600DE244E /* Nanometers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nanometers.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8335BE4C2BFCE67600DE244E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8335BE502BFCE67600DE244E /* ViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRepresentable.swift; sourceTree = "<group>"; };
+		8335BE532BFCE67600DE244E /* Synth.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Synth.aif; sourceTree = "<group>"; };
+		8335BE552BFCE67600DE244E /* SimplePlayEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePlayEngine.swift; sourceTree = "<group>"; };
+		8335BE582BFCE67600DE244E /* MIDIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIManager.swift; sourceTree = "<group>"; };
+		8335BE5A2BFCE67600DE244E /* TypeAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeAliases.swift; sourceTree = "<group>"; };
+		8335BE5D2BFCE67600DE244E /* StringHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringHelpers.swift; sourceTree = "<group>"; };
+		8335BE602BFCE67600DE244E /* AudioUnitHostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitHostModel.swift; sourceTree = "<group>"; };
+		8335BE622BFCE67600DE244E /* AudioUnitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitViewModel.swift; sourceTree = "<group>"; };
+		8335BE642BFCE67600DE244E /* NanometersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NanometersApp.swift; sourceTree = "<group>"; };
+		8335BE672BFCE67600DE244E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8335BE692BFCE67700DE244E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8335BE6B2BFCE67700DE244E /* Nanometers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Nanometers.entitlements; sourceTree = "<group>"; };
+		8335BE702BFCE67700DE244E /* NanometersExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NanometersExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8335BE752BFCE67700DE244E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8335BE782BFCE67700DE244E /* NanometersExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NanometersExtension-Bridging-Header.h"; sourceTree = "<group>"; };
+		8335BE7A2BFCE67700DE244E /* ParameterSpecBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterSpecBase.swift; sourceTree = "<group>"; };
+		8335BE7D2BFCE67700DE244E /* CrossPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossPlatform.swift; sourceTree = "<group>"; };
+		8335BE7F2BFCE67700DE244E /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
+		8335BE822BFCE67700DE244E /* NanometersExtensionAudioUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NanometersExtensionAudioUnit.h; sourceTree = "<group>"; };
+		8335BE832BFCE67700DE244E /* NanometersExtensionAudioUnit.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NanometersExtensionAudioUnit.mm; sourceTree = "<group>"; };
+		8335BE862BFCE67700DE244E /* NanometersExtensionAUProcessHelper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NanometersExtensionAUProcessHelper.hpp; sourceTree = "<group>"; };
+		8335BE882BFCE67700DE244E /* NanometersExtensionBufferedAudioBus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NanometersExtensionBufferedAudioBus.hpp; sourceTree = "<group>"; };
+		8335BE8B2BFCE67700DE244E /* NanometersExtensionParameterAddresses.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NanometersExtensionParameterAddresses.h; sourceTree = "<group>"; };
+		8335BE8C2BFCE67700DE244E /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
+		8335BE8F2BFCE67700DE244E /* NanometersExtensionDSPKernel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NanometersExtensionDSPKernel.hpp; sourceTree = "<group>"; };
+		8335BE922BFCE67700DE244E /* NanometersExtensionMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NanometersExtensionMainView.swift; sourceTree = "<group>"; };
+		8335BE942BFCE67700DE244E /* ParameterSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterSlider.swift; sourceTree = "<group>"; };
+		8335BE992BFCE67700DE244E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = AudioUnitViewController.xib; sourceTree = "<group>"; };
+		8335BE9B2BFCE67700DE244E /* ObservableAUParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableAUParameter.swift; sourceTree = "<group>"; };
+		8335BE9D2BFCE67700DE244E /* AudioUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitViewController.swift; sourceTree = "<group>"; };
+		8335BE9F2BFCE67700DE244E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8335BE462BFCE67600DE244E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8335BE6D2BFCE67700DE244E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8335BE402BFCE67600DE244E = {
+			isa = PBXGroup;
+			children = (
+				8335BE4B2BFCE67600DE244E /* Nanometers */,
+				8335BE742BFCE67700DE244E /* NanometersExtension */,
+				8335BE4A2BFCE67600DE244E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8335BE4A2BFCE67600DE244E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE492BFCE67600DE244E /* Nanometers.app */,
+				8335BE702BFCE67700DE244E /* NanometersExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8335BE4B2BFCE67600DE244E /* Nanometers */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE4C2BFCE67600DE244E /* ContentView.swift */,
+				8335BE642BFCE67600DE244E /* NanometersApp.swift */,
+				8335BE692BFCE67700DE244E /* Assets.xcassets */,
+				8335BE6B2BFCE67700DE244E /* Nanometers.entitlements */,
+				8335BE4E2BFCE67600DE244E /* Common */,
+				8335BE5F2BFCE67600DE244E /* Model */,
+				8335BE662BFCE67600DE244E /* Preview Content */,
+			);
+			path = Nanometers;
+			sourceTree = "<group>";
+		};
+		8335BE4E2BFCE67600DE244E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE5A2BFCE67600DE244E /* TypeAliases.swift */,
+				8335BE4F2BFCE67600DE244E /* UI */,
+				8335BE522BFCE67600DE244E /* Audio */,
+				8335BE572BFCE67600DE244E /* MIDI */,
+				8335BE5C2BFCE67600DE244E /* String */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		8335BE4F2BFCE67600DE244E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE502BFCE67600DE244E /* ViewControllerRepresentable.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		8335BE522BFCE67600DE244E /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE532BFCE67600DE244E /* Synth.aif */,
+				8335BE552BFCE67600DE244E /* SimplePlayEngine.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		8335BE572BFCE67600DE244E /* MIDI */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE582BFCE67600DE244E /* MIDIManager.swift */,
+			);
+			path = MIDI;
+			sourceTree = "<group>";
+		};
+		8335BE5C2BFCE67600DE244E /* String */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE5D2BFCE67600DE244E /* StringHelpers.swift */,
+			);
+			path = String;
+			sourceTree = "<group>";
+		};
+		8335BE5F2BFCE67600DE244E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE602BFCE67600DE244E /* AudioUnitHostModel.swift */,
+				8335BE622BFCE67600DE244E /* AudioUnitViewModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8335BE662BFCE67600DE244E /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE672BFCE67600DE244E /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8335BE742BFCE67700DE244E /* NanometersExtension */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE752BFCE67700DE244E /* README.md */,
+				8335BE9F2BFCE67700DE244E /* Info.plist */,
+				8335BE772BFCE67700DE244E /* Common */,
+				8335BE8A2BFCE67700DE244E /* Parameters */,
+				8335BE8E2BFCE67700DE244E /* DSP */,
+				8335BE912BFCE67700DE244E /* UI */,
+			);
+			path = NanometersExtension;
+			sourceTree = "<group>";
+		};
+		8335BE772BFCE67700DE244E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE782BFCE67700DE244E /* NanometersExtension-Bridging-Header.h */,
+				8335BE792BFCE67700DE244E /* Parameters */,
+				8335BE7C2BFCE67700DE244E /* Utility */,
+				8335BE812BFCE67700DE244E /* Audio Unit */,
+				8335BE852BFCE67700DE244E /* DSP */,
+				8335BE962BFCE67700DE244E /* UI */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		8335BE792BFCE67700DE244E /* Parameters */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE7A2BFCE67700DE244E /* ParameterSpecBase.swift */,
+			);
+			path = Parameters;
+			sourceTree = "<group>";
+		};
+		8335BE7C2BFCE67700DE244E /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE7D2BFCE67700DE244E /* CrossPlatform.swift */,
+				8335BE7F2BFCE67700DE244E /* String+Utils.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		8335BE812BFCE67700DE244E /* Audio Unit */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE822BFCE67700DE244E /* NanometersExtensionAudioUnit.h */,
+				8335BE832BFCE67700DE244E /* NanometersExtensionAudioUnit.mm */,
+			);
+			path = "Audio Unit";
+			sourceTree = "<group>";
+		};
+		8335BE852BFCE67700DE244E /* DSP */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE862BFCE67700DE244E /* NanometersExtensionAUProcessHelper.hpp */,
+				8335BE882BFCE67700DE244E /* NanometersExtensionBufferedAudioBus.hpp */,
+			);
+			path = DSP;
+			sourceTree = "<group>";
+		};
+		8335BE8A2BFCE67700DE244E /* Parameters */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE8B2BFCE67700DE244E /* NanometersExtensionParameterAddresses.h */,
+				8335BE8C2BFCE67700DE244E /* Parameters.swift */,
+			);
+			path = Parameters;
+			sourceTree = "<group>";
+		};
+		8335BE8E2BFCE67700DE244E /* DSP */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE8F2BFCE67700DE244E /* NanometersExtensionDSPKernel.hpp */,
+			);
+			path = DSP;
+			sourceTree = "<group>";
+		};
+		8335BE912BFCE67700DE244E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE922BFCE67700DE244E /* NanometersExtensionMainView.swift */,
+				8335BE942BFCE67700DE244E /* ParameterSlider.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		8335BE962BFCE67700DE244E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE9B2BFCE67700DE244E /* ObservableAUParameter.swift */,
+				8335BE9D2BFCE67700DE244E /* AudioUnitViewController.swift */,
+				8335BE972BFCE67700DE244E /* Base.lproj */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		8335BE972BFCE67700DE244E /* Base.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				8335BE982BFCE67700DE244E /* AudioUnitViewController.xib */,
+			);
+			path = Base.lproj;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8335BE482BFCE67600DE244E /* Nanometers */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8335BEA62BFCE67700DE244E /* Build configuration list for PBXNativeTarget "Nanometers" */;
+			buildPhases = (
+				8335BE452BFCE67600DE244E /* Sources */,
+				8335BE462BFCE67600DE244E /* Frameworks */,
+				8335BE472BFCE67600DE244E /* Resources */,
+				8335BEA52BFCE67700DE244E /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8335BE732BFCE67700DE244E /* PBXTargetDependency */,
+			);
+			name = Nanometers;
+			productName = Nanometers;
+			productReference = 8335BE492BFCE67600DE244E /* Nanometers.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8335BE6F2BFCE67700DE244E /* NanometersExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8335BEA22BFCE67700DE244E /* Build configuration list for PBXNativeTarget "NanometersExtension" */;
+			buildPhases = (
+				8335BE6C2BFCE67700DE244E /* Sources */,
+				8335BE6D2BFCE67700DE244E /* Frameworks */,
+				8335BE6E2BFCE67700DE244E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NanometersExtension;
+			productName = NanometersExtension;
+			productReference = 8335BE702BFCE67700DE244E /* NanometersExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8335BE412BFCE67600DE244E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					8335BE482BFCE67600DE244E = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					8335BE6F2BFCE67700DE244E = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = 8335BE442BFCE67600DE244E /* Build configuration list for PBXProject "Nanometers" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8335BE402BFCE67600DE244E;
+			productRefGroup = 8335BE4A2BFCE67600DE244E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8335BE482BFCE67600DE244E /* Nanometers */,
+				8335BE6F2BFCE67700DE244E /* NanometersExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8335BE472BFCE67600DE244E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8335BE682BFCE67600DE244E /* Preview Assets.xcassets in Resources */,
+				8335BE6A2BFCE67700DE244E /* Assets.xcassets in Resources */,
+				8335BE542BFCE67600DE244E /* Synth.aif in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8335BE6E2BFCE67700DE244E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8335BE872BFCE67700DE244E /* NanometersExtensionAUProcessHelper.hpp in Resources */,
+				8335BE892BFCE67700DE244E /* NanometersExtensionBufferedAudioBus.hpp in Resources */,
+				8335BE902BFCE67700DE244E /* NanometersExtensionDSPKernel.hpp in Resources */,
+				8335BE762BFCE67700DE244E /* README.md in Resources */,
+				8335BE9A2BFCE67700DE244E /* Base in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8335BE452BFCE67600DE244E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8335BE652BFCE67600DE244E /* NanometersApp.swift in Sources */,
+				8335BE612BFCE67600DE244E /* AudioUnitHostModel.swift in Sources */,
+				8335BE632BFCE67600DE244E /* AudioUnitViewModel.swift in Sources */,
+				8335BE4D2BFCE67600DE244E /* ContentView.swift in Sources */,
+				8335BE512BFCE67600DE244E /* ViewControllerRepresentable.swift in Sources */,
+				8335BE5E2BFCE67600DE244E /* StringHelpers.swift in Sources */,
+				8335BE592BFCE67600DE244E /* MIDIManager.swift in Sources */,
+				8335BE5B2BFCE67600DE244E /* TypeAliases.swift in Sources */,
+				8335BE562BFCE67600DE244E /* SimplePlayEngine.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8335BE6C2BFCE67700DE244E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8335BE8D2BFCE67700DE244E /* Parameters.swift in Sources */,
+				8335BE7B2BFCE67700DE244E /* ParameterSpecBase.swift in Sources */,
+				8335BE9C2BFCE67700DE244E /* ObservableAUParameter.swift in Sources */,
+				8335BE7E2BFCE67700DE244E /* CrossPlatform.swift in Sources */,
+				8335BE842BFCE67700DE244E /* NanometersExtensionAudioUnit.mm in Sources */,
+				8335BE9E2BFCE67700DE244E /* AudioUnitViewController.swift in Sources */,
+				8335BE952BFCE67700DE244E /* ParameterSlider.swift in Sources */,
+				8335BE802BFCE67700DE244E /* String+Utils.swift in Sources */,
+				8335BE932BFCE67700DE244E /* NanometersExtensionMainView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8335BE732BFCE67700DE244E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8335BE6F2BFCE67700DE244E /* NanometersExtension */;
+			targetProxy = 8335BE722BFCE67700DE244E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8335BE982BFCE67700DE244E /* AudioUnitViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8335BE992BFCE67700DE244E /* Base */,
+			);
+			name = AudioUnitViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8335BEA02BFCE67700DE244E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8335BEA12BFCE67700DE244E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		8335BEA32BFCE67700DE244E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 29V29Y67P2;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NanometersExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NanometersExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hguandl.Nanometers.NanometersExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "NanometersExtension/Common/NanometersExtension-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		8335BEA42BFCE67700DE244E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 29V29Y67P2;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NanometersExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NanometersExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hguandl.Nanometers.NanometersExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "NanometersExtension/Common/NanometersExtension-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		8335BEA72BFCE67700DE244E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Nanometers/Nanometers.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Nanometers/Preview Content\"";
+				DEVELOPMENT_TEAM = 29V29Y67P2;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Nanometers;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					AudioToolbox,
+					"-framework",
+					AVFoundation,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hguandl.Nanometers;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		8335BEA82BFCE67700DE244E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Nanometers/Nanometers.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Nanometers/Preview Content\"";
+				DEVELOPMENT_TEAM = 29V29Y67P2;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Nanometers;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					AudioToolbox,
+					"-framework",
+					AVFoundation,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hguandl.Nanometers;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8335BE442BFCE67600DE244E /* Build configuration list for PBXProject "Nanometers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8335BEA02BFCE67700DE244E /* Debug */,
+				8335BEA12BFCE67700DE244E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8335BEA22BFCE67700DE244E /* Build configuration list for PBXNativeTarget "NanometersExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8335BEA32BFCE67700DE244E /* Debug */,
+				8335BEA42BFCE67700DE244E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8335BEA62BFCE67700DE244E /* Build configuration list for PBXNativeTarget "Nanometers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8335BEA72BFCE67700DE244E /* Debug */,
+				8335BEA82BFCE67700DE244E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8335BE412BFCE67600DE244E /* Project object */;
+}
