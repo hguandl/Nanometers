@@ -6,15 +6,18 @@
 //
 
 import AudioToolbox
-import AudioUnit.AUParameters
-import Foundation
+import Network
 
 class NanometersExtensionDSPKernel {
+    private let connection = NWConnection(to: .unix(path: "/tmp/nanometers.sock"), using: .tcp)
+
     func initialize(inputChannelCount: Int32, outputChannelCount: Int32, inSampleRate: Double) {
         sampleRate = inSampleRate
+        connection.start(queue: .global())
     }
 
-    func deInitialize() { //
+    func deInitialize() {
+        connection.cancel()
     }
 
     // MARK: - Parameter Getter / Setter
@@ -62,6 +65,18 @@ class NanometersExtensionDSPKernel {
                 outputBuffers[channel].initialize(from: inputBuffers[channel], count: Int(frameCount))
             }
             return
+        }
+
+        // Network
+        switch connection.state {
+        case .ready:
+            connection.send(content: /* from buffer */ Data(), completion: .idempotent)
+        case .failed, .cancelled:
+            /* put data into buffer */
+            connection.restart()
+        default:
+            /* put data into buffer */
+            break
         }
 
         // Use this to get Musical context info from the Plugin Host,
