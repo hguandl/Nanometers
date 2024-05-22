@@ -5,5 +5,7 @@
 //  Created by hguandl on 2024/5/21.
 //
 
-#import "NanometersExtensionAudioUnit.h"
 #import "NanometersExtensionParameterAddresses.h"
+
+#import "NanometersExtensionAUProcessHelper.hpp"
+#import "NanometersExtensionDSPKernel.hpp"

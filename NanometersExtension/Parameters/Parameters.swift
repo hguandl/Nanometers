@@ -23,7 +23,7 @@ let NanometersExtensionParameterSpecs = ParameterTreeSpec {
 
 extension ParameterSpec {
     init(
-        address: NanometersExtensionParameterAddress,
+        address: NanometersExtensionParameterAddress.NanometersExtensionParameterAddress,
         identifier: String,
         name: String,
         units: AudioUnitParameterUnit,

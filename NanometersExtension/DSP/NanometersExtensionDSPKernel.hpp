@@ -12,7 +12,6 @@
 #import <vector>
 #import <span>
 
-#import "NanometersExtension-Swift.h"
 #import "NanometersExtensionParameterAddresses.h"
 
 /*
