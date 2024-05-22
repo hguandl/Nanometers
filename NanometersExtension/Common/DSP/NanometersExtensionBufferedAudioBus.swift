@@ -92,7 +92,7 @@ import AVFoundation
      the pullInputBlock.
      */
     @objc func pullInput(
-        actionFlags: UnsafeMutablePointer<UInt32>,
+        actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
         timestamp: UnsafePointer<AudioTimeStamp>,
         frameCount: AVAudioFrameCount,
         inputBusNumber: Int,

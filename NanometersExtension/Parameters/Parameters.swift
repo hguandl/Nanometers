@@ -5,8 +5,12 @@
 //  Created by hguandl on 2024/5/21.
 //
 
-import Foundation
 import AudioToolbox
+import Foundation
+
+enum NanometersExtensionParameterAddress: AUParameterAddress {
+    case gain = 0
+}
 
 let NanometersExtensionParameterSpecs = ParameterTreeSpec {
     ParameterGroupSpec(identifier: "global", name: "Global") {
@@ -15,7 +19,7 @@ let NanometersExtensionParameterSpecs = ParameterTreeSpec {
             identifier: "gain",
             name: "Output Gain",
             units: .linearGain,
-            valueRange: 0.0...1.0,
+            valueRange: 0.0 ... 1.0,
             defaultValue: 0.25
         )
     }
@@ -23,7 +27,7 @@ let NanometersExtensionParameterSpecs = ParameterTreeSpec {
 
 extension ParameterSpec {
     init(
-        address: NanometersExtensionParameterAddress.NanometersExtensionParameterAddress,
+        address: NanometersExtensionParameterAddress,
         identifier: String,
         name: String,
         units: AudioUnitParameterUnit,
