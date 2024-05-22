@@ -10,9 +10,9 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CoreAudioKit/AUViewController.h>
 
-#import "NanometersExtensionBufferedAudioBus.hpp"
 #import "NanometersExtensionAUProcessHelper.hpp"
 #import "NanometersExtensionDSPKernel.hpp"
+#import "NanometersExtension-Swift.h"
 
 @interface NanometersExtensionAudioUnit ()
 
@@ -20,13 +20,13 @@
 @property AUAudioUnitBusArray *inputBusArray;
 @property AUAudioUnitBusArray *outputBusArray;
 @property (nonatomic, readonly) AUAudioUnitBus *outputBus;
+@property (nonatomic, readonly) BufferedInputBus *inputBus;
 @end
 
 
 @implementation NanometersExtensionAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     NanometersExtensionDSPKernel _kernel;
-    BufferedInputBus _inputBus;
     std::unique_ptr<AUProcessHelper> _processHelper;
 }
 
@@ -51,7 +51,7 @@
     _outputBus.maximumChannelCount = 8;
     
     // Create the input and output busses.
-    _inputBus.init(format, 8);
+    _inputBus = [[BufferedInputBus alloc] initWithFormat:format maxChannels:8];
     
     // Create the input and output bus arrays.
     _inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
@@ -144,7 +144,7 @@
         
         return NO;
     }
-    _inputBus.allocateRenderResources(self.maximumFramesToRender);
+    [_inputBus allocateRenderResources:self.maximumFramesToRender];
     _kernel.setMusicalContextBlock(self.musicalContextBlock);
     _kernel.initialize(inputChannelCount, outputChannelCount, _outputBus.format.sampleRate);
     _processHelper = std::make_unique<AUProcessHelper>(_kernel, inputChannelCount, outputChannelCount);
@@ -172,7 +172,7 @@
     // Specify captured objects are mutable.
     __block NanometersExtensionDSPKernel *kernel = &_kernel;
     __block std::unique_ptr<AUProcessHelper> &processHelper = _processHelper;
-    __block BufferedInputBus *input = &_inputBus;
+    __block BufferedInputBus *input = _inputBus;
     
     return ^AUAudioUnitStatus(AudioUnitRenderActionFlags 				*actionFlags,
                               const AudioTimeStamp       				*timestamp,
@@ -188,11 +188,11 @@
             return kAudioUnitErr_TooManyFramesToProcess;
         }
         
-        AUAudioUnitStatus err = input->pullInput(&pullFlags, timestamp, frameCount, 0, pullInputBlock);
+        AUAudioUnitStatus err = [input pullInputWithActionFlags:&pullFlags timestamp:timestamp frameCount:frameCount inputBusNumber:0 pullInputBlock:pullInputBlock];
         
         if (err != 0) { return err; }
         
-        AudioBufferList *inAudioBufferList = input->mutableAudioBufferList;
+        AudioBufferList *inAudioBufferList = [input mutableAudioBufferList];
         
         /*
          Important:

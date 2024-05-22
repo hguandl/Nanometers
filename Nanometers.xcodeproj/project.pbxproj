@@ -26,7 +26,6 @@
 		8335BE802BFCE67700DE244E /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE7F2BFCE67700DE244E /* String+Utils.swift */; };
 		8335BE842BFCE67700DE244E /* NanometersExtensionAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE832BFCE67700DE244E /* NanometersExtensionAudioUnit.mm */; };
 		8335BE872BFCE67700DE244E /* NanometersExtensionAUProcessHelper.hpp in Resources */ = {isa = PBXBuildFile; fileRef = 8335BE862BFCE67700DE244E /* NanometersExtensionAUProcessHelper.hpp */; };
-		8335BE892BFCE67700DE244E /* NanometersExtensionBufferedAudioBus.hpp in Resources */ = {isa = PBXBuildFile; fileRef = 8335BE882BFCE67700DE244E /* NanometersExtensionBufferedAudioBus.hpp */; };
 		8335BE8D2BFCE67700DE244E /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE8C2BFCE67700DE244E /* Parameters.swift */; };
 		8335BE902BFCE67700DE244E /* NanometersExtensionDSPKernel.hpp in Resources */ = {isa = PBXBuildFile; fileRef = 8335BE8F2BFCE67700DE244E /* NanometersExtensionDSPKernel.hpp */; };
 		8335BE932BFCE67700DE244E /* NanometersExtensionMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE922BFCE67700DE244E /* NanometersExtensionMainView.swift */; };
@@ -34,6 +33,7 @@
 		8335BE9A2BFCE67700DE244E /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8335BE992BFCE67700DE244E /* Base */; };
 		8335BE9C2BFCE67700DE244E /* ObservableAUParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE9B2BFCE67700DE244E /* ObservableAUParameter.swift */; };
 		8335BE9E2BFCE67700DE244E /* AudioUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BE9D2BFCE67700DE244E /* AudioUnitViewController.swift */; };
+		836DF34C2BFD2B3A000DD136 /* NanometersExtensionBufferedAudioBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DF34B2BFD2B3A000DD136 /* NanometersExtensionBufferedAudioBus.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,7 +84,6 @@
 		8335BE822BFCE67700DE244E /* NanometersExtensionAudioUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NanometersExtensionAudioUnit.h; sourceTree = "<group>"; };
 		8335BE832BFCE67700DE244E /* NanometersExtensionAudioUnit.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NanometersExtensionAudioUnit.mm; sourceTree = "<group>"; };
 		8335BE862BFCE67700DE244E /* NanometersExtensionAUProcessHelper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NanometersExtensionAUProcessHelper.hpp; sourceTree = "<group>"; };
-		8335BE882BFCE67700DE244E /* NanometersExtensionBufferedAudioBus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NanometersExtensionBufferedAudioBus.hpp; sourceTree = "<group>"; };
 		8335BE8B2BFCE67700DE244E /* NanometersExtensionParameterAddresses.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NanometersExtensionParameterAddresses.h; sourceTree = "<group>"; };
 		8335BE8C2BFCE67700DE244E /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
 		8335BE8F2BFCE67700DE244E /* NanometersExtensionDSPKernel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NanometersExtensionDSPKernel.hpp; sourceTree = "<group>"; };
@@ -94,6 +93,7 @@
 		8335BE9B2BFCE67700DE244E /* ObservableAUParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableAUParameter.swift; sourceTree = "<group>"; };
 		8335BE9D2BFCE67700DE244E /* AudioUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitViewController.swift; sourceTree = "<group>"; };
 		8335BE9F2BFCE67700DE244E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		836DF34B2BFD2B3A000DD136 /* NanometersExtensionBufferedAudioBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NanometersExtensionBufferedAudioBus.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,7 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				8335BE862BFCE67700DE244E /* NanometersExtensionAUProcessHelper.hpp */,
-				8335BE882BFCE67700DE244E /* NanometersExtensionBufferedAudioBus.hpp */,
+				836DF34B2BFD2B3A000DD136 /* NanometersExtensionBufferedAudioBus.swift */,
 			);
 			path = DSP;
 			sourceTree = "<group>";
@@ -405,7 +405,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8335BE872BFCE67700DE244E /* NanometersExtensionAUProcessHelper.hpp in Resources */,
-				8335BE892BFCE67700DE244E /* NanometersExtensionBufferedAudioBus.hpp in Resources */,
 				8335BE902BFCE67700DE244E /* NanometersExtensionDSPKernel.hpp in Resources */,
 				8335BE762BFCE67700DE244E /* README.md in Resources */,
 				8335BE9A2BFCE67700DE244E /* Base in Resources */,
@@ -438,6 +437,7 @@
 				8335BE8D2BFCE67700DE244E /* Parameters.swift in Sources */,
 				8335BE7B2BFCE67700DE244E /* ParameterSpecBase.swift in Sources */,
 				8335BE9C2BFCE67700DE244E /* ObservableAUParameter.swift in Sources */,
+				836DF34C2BFD2B3A000DD136 /* NanometersExtensionBufferedAudioBus.swift in Sources */,
 				8335BE7E2BFCE67700DE244E /* CrossPlatform.swift in Sources */,
 				8335BE842BFCE67700DE244E /* NanometersExtensionAudioUnit.mm in Sources */,
 				8335BE9E2BFCE67700DE244E /* AudioUnitViewController.swift in Sources */,
