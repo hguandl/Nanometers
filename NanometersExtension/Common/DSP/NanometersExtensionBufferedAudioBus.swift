@@ -13,16 +13,16 @@ import AVFoundation
 // Utility classes to manage audio formats and buffers for an audio unit implementation's input and output audio busses.
 
 // Reusable ObjC class, accessible from render thread.
-@objc class BufferedAudioBus: NSObject {
-    @objc var bus: AUAudioUnitBus!
-    @objc var maxFrames: AUAudioFrameCount
+class BufferedAudioBus: NSObject {
+    var bus: AUAudioUnitBus!
+    var maxFrames: AUAudioFrameCount
 
-    @objc var pcmBuffer: AVAudioPCMBuffer!
+    var pcmBuffer: AVAudioPCMBuffer!
 
-    @objc var originalAudioBufferList: UnsafePointer<AudioBufferList>!
-    @objc var mutableAudioBufferList: UnsafeMutablePointer<AudioBufferList>!
+    var originalAudioBufferList: UnsafePointer<AudioBufferList>!
+    var mutableAudioBufferList: UnsafeMutablePointer<AudioBufferList>!
 
-    @objc init(format: AVAudioFormat, maxChannels: AVAudioChannelCount) {
+    init(format: AVAudioFormat, maxChannels: AVAudioChannelCount) {
         maxFrames = 0
         pcmBuffer = nil
 
@@ -31,7 +31,7 @@ import AVFoundation
         bus.maximumChannelCount = maxChannels
     }
 
-    @objc func allocateRenderResources(_ inMaxFrames: AUAudioFrameCount) {
+    func allocateRenderResources(_ inMaxFrames: AUAudioFrameCount) {
         maxFrames = inMaxFrames
 
         pcmBuffer = AVAudioPCMBuffer(pcmFormat: bus.format, frameCapacity: maxFrames)
@@ -40,7 +40,7 @@ import AVFoundation
         mutableAudioBufferList = pcmBuffer.mutableAudioBufferList
     }
 
-    @objc func deallocateRenderResources() {
+    func deallocateRenderResources() {
         pcmBuffer = nil
         originalAudioBufferList = nil
         mutableAudioBufferList = nil
@@ -55,8 +55,8 @@ import AVFoundation
  This class provides a prepareOutputBufferList method to copy the internal buffer pointers
  to the output buffer list in case the client passed in null buffer pointers.
  */
-@objc class BufferedOutputBus: BufferedAudioBus {
-    @objc func prepareOutputBufferList(outBufferList: UnsafeMutablePointer<AudioBufferList>,
+final class BufferedOutputBus: BufferedAudioBus {
+    func prepareOutputBufferList(outBufferList: UnsafeMutablePointer<AudioBufferList>,
                                        frameCount: AVAudioFrameCount, zeroFill: Bool)
     {
         let byteSize = frameCount * UInt32(MemoryLayout<Float>.size)
@@ -86,12 +86,12 @@ import AVFoundation
  This class manages a buffer into which an audio unit with input busses can
  pull its input data.
  */
-@objc class BufferedInputBus: BufferedAudioBus {
+final class BufferedInputBus: BufferedAudioBus {
     /*
      Gets input data for this input by preparing the input buffer list and pulling
      the pullInputBlock.
      */
-    @objc func pullInput(
+    func pullInput(
         actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
         timestamp: UnsafePointer<AudioTimeStamp>,
         frameCount: AVAudioFrameCount,
@@ -126,7 +126,7 @@ import AVFoundation
      The upstream audio unit may overwrite these with its own pointers, so each
      render cycle this function needs to be called to reset them.
      */
-    @objc func prepareInputBufferList(_ frameCount: AVAudioFrameCount) {
+    func prepareInputBufferList(_ frameCount: AVAudioFrameCount) {
         let byteSize = min(frameCount, maxFrames) * UInt32(MemoryLayout<Float>.size)
         mutableAudioBufferList.pointee.mNumberBuffers = originalAudioBufferList.pointee.mNumberBuffers
 

@@ -5,17 +5,16 @@
 //  Created by hguandl on 2024/5/22.
 //
 
-import AudioToolbox
 import AVFoundation
-import CoreAudioKit
 
-class NanometersExtensionAudioUnit: AUAudioUnit {
+final class NanometersExtensionAudioUnit: AUAudioUnit {
     private var inputBusArray: AUAudioUnitBusArray!
     private var outputBusArray: AUAudioUnitBusArray!
+
+    private var inputBus: BufferedInputBus!
     private var outputBus: AUAudioUnitBus!
 
-    private var kernel = NanometersExtensionDSPKernel()
-    private var inputBus: BufferedInputBus!
+    private var kernel: NanometersExtensionDSPKernel?
     private var processHelper: ProcessHelper?
 
     override init(componentDescription: AudioComponentDescription, options: AudioComponentInstantiationOptions = []) throws {
@@ -47,7 +46,7 @@ class NanometersExtensionAudioUnit: AUAudioUnit {
 
         // Send the Parameter default values to the Kernel before setting up the parameter callbacks, so that the defaults set in the Kernel.hpp don't propagate back to the AUParameters via GetParameter
         for param in parameterTree.allParameters {
-            kernel.setParameter(address: param.address, value: param.value)
+            kernel?.setParameter(address: param.address, value: param.value)
         }
 
         setupParameterCallbacks()
@@ -56,12 +55,12 @@ class NanometersExtensionAudioUnit: AUAudioUnit {
     private func setupParameterCallbacks() {
         // implementorValueObserver is called when a parameter changes value.
         parameterTree?.implementorValueObserver = { [unowned self] param, value in
-            kernel.setParameter(address: param.address, value: value)
+            kernel?.setParameter(address: param.address, value: value)
         }
 
         // implementorValueProvider is called when the value needs to be refreshed.
         parameterTree?.implementorValueProvider = { [unowned self] param in
-            kernel.getParameter(address: param.address)
+            kernel?.getParameter(address: param.address) ?? 0
         }
 
         // A function to provide string representations of parameter values.
@@ -73,36 +72,32 @@ class NanometersExtensionAudioUnit: AUAudioUnit {
                 value = param.value
             }
 
-            return String(format: "%.f", value)
+            return "\(value)"
         }
     }
 
     // MARK: - AUAudioUnit Overrides
 
     override var maximumFramesToRender: AUAudioFrameCount {
-        get { kernel.maxFramesToRender }
-
-        set { kernel.maxFramesToRender = newValue }
+        get { kernel?.maxFramesToRender ?? 0 }
+        set { kernel?.maxFramesToRender = newValue }
     }
 
     // If an audio unit has input, an audio unit's audio input connection points.
     // Subclassers must override this property getter and should return the same object every time.
-    // See sample code.
     override var inputBusses: AUAudioUnitBusArray {
         inputBusArray
     }
 
     // An audio unit's audio output connection points.
     // Subclassers must override this property getter and should return the same object every time.
-    // See sample code.
     override var outputBusses: AUAudioUnitBusArray {
         outputBusArray
     }
 
     override var shouldBypassEffect: Bool {
-        get { kernel.bypassed }
-
-        set { kernel.bypassed = newValue }
+        get { kernel?.bypassed ?? false }
+        set { kernel?.bypassed = newValue }
     }
 
     // Allocate resources required to render.
@@ -114,10 +109,16 @@ class NanometersExtensionAudioUnit: AUAudioUnit {
         guard outputChannelCount == inputChannelCount else {
             throw NSError(domain: NSOSStatusErrorDomain, code: Int(kAudioUnitErr_FailedInitialization))
         }
-        inputBus.allocateRenderResources(maximumFramesToRender)
+
+        let kernel = NanometersExtensionDSPKernel(inputChannelCount: inputChannelCount,
+                                                  outputChannelCount: outputChannelCount,
+                                                  inSampleRate: outputBus.format.sampleRate)
         kernel.musicalContextBlock = musicalContextBlock
-        kernel.initialize(inputChannelCount: Int32(inputChannelCount), outputChannelCount: Int32(outputChannelCount), inSampleRate: outputBus.format.sampleRate)
+
         processHelper = ProcessHelper(kernel: kernel, inputChannelCount: inputChannelCount, outputChannelCount: outputChannelCount)
+        self.kernel = kernel
+
+        inputBus.allocateRenderResources(maximumFramesToRender)
         try super.allocateRenderResources()
     }
 
@@ -125,7 +126,8 @@ class NanometersExtensionAudioUnit: AUAudioUnit {
     // Subclassers should call the superclass implementation.
     override func deallocateRenderResources() {
         // Deallocate your resources.
-        kernel.deInitialize()
+        processHelper = nil
+        kernel = nil
 
         super.deallocateRenderResources()
     }
@@ -134,6 +136,7 @@ class NanometersExtensionAudioUnit: AUAudioUnit {
 
     override var internalRenderBlock: AUInternalRenderBlock {
         return { [unowned self] _, timestamp, frameCount, _, outputData, realtimeEventListHead, pullInputBlock in
+            guard let kernel, let processHelper else { return kAudioUnitErr_Uninitialized }
 
             var pullFlags = AudioUnitRenderActionFlags(rawValue: 0)
 
@@ -141,7 +144,11 @@ class NanometersExtensionAudioUnit: AUAudioUnit {
                 return kAudioUnitErr_TooManyFramesToProcess
             }
 
-            let err = inputBus.pullInput(actionFlags: &pullFlags, timestamp: timestamp, frameCount: frameCount, inputBusNumber: 0, pullInputBlock: pullInputBlock)
+            let err = inputBus.pullInput(actionFlags: &pullFlags,
+                                         timestamp: timestamp,
+                                         frameCount: frameCount,
+                                         inputBusNumber: 0,
+                                         pullInputBlock: pullInputBlock)
 
             guard err == noErr else { return err }
 
@@ -170,7 +177,11 @@ class NanometersExtensionAudioUnit: AUAudioUnit {
                 }
             }
 
-            processHelper?.processWithEvents(inBufferList: inAudioBufferList, outBufferList: outAudioBufferList, timestamp: timestamp, frameCount: frameCount, events: realtimeEventListHead)
+            processHelper.processWithEvents(inBufferList: inAudioBufferList,
+                                            outBufferList: outAudioBufferList,
+                                            timestamp: timestamp,
+                                            frameCount: frameCount,
+                                            events: realtimeEventListHead)
             return noErr
         }
     }

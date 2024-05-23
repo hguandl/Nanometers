@@ -8,11 +8,14 @@
 import AudioToolbox
 import Network
 
-class NanometersExtensionDSPKernel {
+final class NanometersExtensionDSPKernel {
     private let connection = NWConnection(to: .unix(path: "/tmp/nanometers.sock"), using: .tcp)
 
-    func initialize(inputChannelCount: Int32, outputChannelCount: Int32, inSampleRate: Double) {
+    init(inputChannelCount: UInt32, outputChannelCount: UInt32, inSampleRate: Double) {
         sampleRate = inSampleRate
+    }
+
+    func initialize(inputChannelCount: Int32, outputChannelCount: Int32, inSampleRate: Double) {
         connection.start(queue: .global())
     }
 
@@ -119,7 +122,7 @@ class NanometersExtensionDSPKernel {
 
     var musicalContextBlock: AUHostMusicalContextBlock?
 
-    var sampleRate = 44100.0
+    let sampleRate: Double
     var gain: Float = 1.0
     var bypassed = false
     var maxFramesToRender: AUAudioFrameCount = 1024
