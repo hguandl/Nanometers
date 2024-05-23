@@ -14,7 +14,7 @@ final class NanometersExtensionAudioUnit: AUAudioUnit {
     private var inputBus: BufferedInputBus!
     private var outputBus: AUAudioUnitBus!
 
-    private var kernel: NanometersExtensionDSPKernel?
+    private let kernel = NanometersExtensionDSPKernel()
     private var processHelper: ProcessHelper?
 
     override init(componentDescription: AudioComponentDescription, options: AudioComponentInstantiationOptions = []) throws {
@@ -46,7 +46,7 @@ final class NanometersExtensionAudioUnit: AUAudioUnit {
 
         // Send the Parameter default values to the Kernel before setting up the parameter callbacks, so that the defaults set in the Kernel.hpp don't propagate back to the AUParameters via GetParameter
         for param in parameterTree.allParameters {
-            kernel?.setParameter(address: param.address, value: param.value)
+            kernel.setParameter(address: param.address, value: param.value)
         }
 
         setupParameterCallbacks()
@@ -55,12 +55,12 @@ final class NanometersExtensionAudioUnit: AUAudioUnit {
     private func setupParameterCallbacks() {
         // implementorValueObserver is called when a parameter changes value.
         parameterTree?.implementorValueObserver = { [unowned self] param, value in
-            kernel?.setParameter(address: param.address, value: value)
+            kernel.setParameter(address: param.address, value: value)
         }
 
         // implementorValueProvider is called when the value needs to be refreshed.
         parameterTree?.implementorValueProvider = { [unowned self] param in
-            kernel?.getParameter(address: param.address) ?? 0
+            kernel.getParameter(address: param.address)
         }
 
         // A function to provide string representations of parameter values.
@@ -79,8 +79,8 @@ final class NanometersExtensionAudioUnit: AUAudioUnit {
     // MARK: - AUAudioUnit Overrides
 
     override var maximumFramesToRender: AUAudioFrameCount {
-        get { kernel?.maxFramesToRender ?? 0 }
-        set { kernel?.maxFramesToRender = newValue }
+        get { kernel.maxFramesToRender }
+        set { kernel.maxFramesToRender = newValue }
     }
 
     // If an audio unit has input, an audio unit's audio input connection points.
@@ -96,8 +96,8 @@ final class NanometersExtensionAudioUnit: AUAudioUnit {
     }
 
     override var shouldBypassEffect: Bool {
-        get { kernel?.bypassed ?? false }
-        set { kernel?.bypassed = newValue }
+        get { kernel.bypassed }
+        set { kernel.bypassed = newValue }
     }
 
     // Allocate resources required to render.
@@ -110,13 +110,9 @@ final class NanometersExtensionAudioUnit: AUAudioUnit {
             throw NSError(domain: NSOSStatusErrorDomain, code: Int(kAudioUnitErr_FailedInitialization))
         }
 
-        let kernel = NanometersExtensionDSPKernel(inputChannelCount: inputChannelCount,
-                                                  outputChannelCount: outputChannelCount,
-                                                  inSampleRate: outputBus.format.sampleRate)
+        kernel.initialize(inputChannelCount: inputChannelCount, outputChannelCount: outputChannelCount, inSampleRate: outputBus.format.sampleRate)
         kernel.musicalContextBlock = musicalContextBlock
-
         processHelper = ProcessHelper(kernel: kernel, inputChannelCount: inputChannelCount, outputChannelCount: outputChannelCount)
-        self.kernel = kernel
 
         try inputBus.allocateRenderResources(maximumFramesToRender)
         try super.allocateRenderResources()
@@ -126,8 +122,8 @@ final class NanometersExtensionAudioUnit: AUAudioUnit {
     // Subclassers should call the superclass implementation.
     override func deallocateRenderResources() {
         // Deallocate your resources.
+        kernel.deInitialize()
         processHelper = nil
-        kernel = nil
 
         super.deallocateRenderResources()
     }
@@ -136,9 +132,7 @@ final class NanometersExtensionAudioUnit: AUAudioUnit {
 
     override var internalRenderBlock: AUInternalRenderBlock {
         return { [unowned self] _, timestamp, frameCount, _, outputData, realtimeEventListHead, pullInputBlock in
-            guard let kernel, let processHelper,
-                  let inAudioBufferList = inputBus.mutableAudioBufferList
-            else {
+            guard let processHelper, let inAudioBufferList = inputBus.mutableAudioBufferList else {
                 return kAudioUnitErr_Uninitialized
             }
 
