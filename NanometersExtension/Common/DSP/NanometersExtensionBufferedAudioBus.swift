@@ -5,39 +5,36 @@
 //  Created by hguandl on 2024/5/22.
 //
 
-import AudioToolbox
-import AudioUnit
 import AVFoundation
 
 // MARK: - BufferedAudioBus Utility Class
 // Utility classes to manage audio formats and buffers for an audio unit implementation's input and output audio busses.
 
-// Reusable ObjC class, accessible from render thread.
-class BufferedAudioBus: NSObject {
-    var bus: AUAudioUnitBus!
-    var maxFrames: AUAudioFrameCount
+// Reusable class, accessible from render thread.
+class BufferedAudioBus {
+    let bus: AUAudioUnitBus
+    var maxFrames: AUAudioFrameCount = 0
 
-    var pcmBuffer: AVAudioPCMBuffer!
+    private var pcmBuffer: AVAudioPCMBuffer?
 
-    var originalAudioBufferList: UnsafePointer<AudioBufferList>!
-    var mutableAudioBufferList: UnsafeMutablePointer<AudioBufferList>!
+    private(set) var originalAudioBufferList: UnsafeMutableAudioBufferListPointer?
+    private(set) var mutableAudioBufferList: UnsafeMutableAudioBufferListPointer?
 
-    init(format: AVAudioFormat, maxChannels: AVAudioChannelCount) {
-        maxFrames = 0
-        pcmBuffer = nil
-
-        bus = try! AUAudioUnitBus(format: format)
-
+    init(format: AVAudioFormat, maxChannels: AVAudioChannelCount) throws {
+        bus = try AUAudioUnitBus(format: format)
         bus.maximumChannelCount = maxChannels
     }
 
-    func allocateRenderResources(_ inMaxFrames: AUAudioFrameCount) {
+    func allocateRenderResources(_ inMaxFrames: AUAudioFrameCount) throws {
         maxFrames = inMaxFrames
 
-        pcmBuffer = AVAudioPCMBuffer(pcmFormat: bus.format, frameCapacity: maxFrames)
+        guard let pcmBuffer = AVAudioPCMBuffer(pcmFormat: bus.format, frameCapacity: maxFrames) else {
+            throw NSError(domain: NSOSStatusErrorDomain, code: Int(kAudioUnitErr_FailedInitialization))
+        }
 
-        originalAudioBufferList = pcmBuffer.audioBufferList
-        mutableAudioBufferList = pcmBuffer.mutableAudioBufferList
+        originalAudioBufferList = .init(.init(mutating: pcmBuffer.audioBufferList))
+        mutableAudioBufferList = .init(pcmBuffer.mutableAudioBufferList)
+        self.pcmBuffer = pcmBuffer
     }
 
     func deallocateRenderResources() {
@@ -57,21 +54,20 @@ class BufferedAudioBus: NSObject {
  */
 final class BufferedOutputBus: BufferedAudioBus {
     func prepareOutputBufferList(outBufferList: UnsafeMutablePointer<AudioBufferList>,
-                                       frameCount: AVAudioFrameCount, zeroFill: Bool)
+                                 frameCount: AVAudioFrameCount, zeroFill: Bool)
     {
+        guard let originalAudioBufferList else { return }
+        let outAudioBufferList = UnsafeMutableAudioBufferListPointer(outBufferList)
         let byteSize = frameCount * UInt32(MemoryLayout<Float>.size)
 
-        let target = UnsafeMutableAudioBufferListPointer(outBufferList)!
-        let source = UnsafeMutableAudioBufferListPointer(UnsafeMutablePointer(mutating: originalAudioBufferList))!
-
-        for i in 0 ..< Int(outBufferList.pointee.mNumberBuffers) {
-            target[i].mNumberChannels = source[i].mNumberChannels
-            target[i].mDataByteSize = byteSize
-            if target[i].mData == nil {
-                target[i].mData = source[i].mData
+        for i in 0 ..< outAudioBufferList.count {
+            outAudioBufferList[i].mNumberChannels = originalAudioBufferList[i].mNumberChannels
+            outAudioBufferList[i].mDataByteSize = byteSize
+            if outAudioBufferList[i].mData == nil {
+                outAudioBufferList[i].mData = originalAudioBufferList[i].mData
             }
             if zeroFill {
-                memset(target[i].mData, 0, Int(byteSize))
+                memset(outAudioBufferList[i].mData, 0, Int(byteSize))
             }
         }
     }
@@ -98,6 +94,10 @@ final class BufferedInputBus: BufferedAudioBus {
         inputBusNumber: Int,
         pullInputBlock: AURenderPullInputBlock?) -> AUAudioUnitStatus
     {
+        guard let mutableAudioBufferList else {
+            return kAudioUnitErr_Uninitialized
+        }
+
         guard let pullInputBlock else {
             return kAudioUnitErr_NoConnection
         }
@@ -114,9 +114,9 @@ final class BufferedInputBus: BufferedAudioBus {
          See prepareInputBufferList()
          */
 
-        prepareInputBufferList(frameCount)
+        prepareInputBufferList(frameCount: frameCount)
 
-        return pullInputBlock(actionFlags, timestamp, frameCount, inputBusNumber, mutableAudioBufferList)
+        return pullInputBlock(actionFlags, timestamp, frameCount, inputBusNumber, mutableAudioBufferList.unsafeMutablePointer)
     }
 
     /*
@@ -126,17 +126,15 @@ final class BufferedInputBus: BufferedAudioBus {
      The upstream audio unit may overwrite these with its own pointers, so each
      render cycle this function needs to be called to reset them.
      */
-    func prepareInputBufferList(_ frameCount: AVAudioFrameCount) {
+    func prepareInputBufferList(frameCount: AVAudioFrameCount) {
+        guard let originalAudioBufferList, let mutableAudioBufferList else { return }
+
         let byteSize = min(frameCount, maxFrames) * UInt32(MemoryLayout<Float>.size)
-        mutableAudioBufferList.pointee.mNumberBuffers = originalAudioBufferList.pointee.mNumberBuffers
 
-        let target = UnsafeMutableAudioBufferListPointer(mutableAudioBufferList)!
-        let source = UnsafeMutableAudioBufferListPointer(UnsafeMutablePointer(mutating: originalAudioBufferList))!
-
-        for i in 0 ..< Int(originalAudioBufferList.pointee.mNumberBuffers) {
-            target[i].mNumberChannels = source[i].mNumberChannels
-            target[i].mData = source[i].mData
-            target[i].mDataByteSize = byteSize
+        for i in 0 ..< originalAudioBufferList.count {
+            mutableAudioBufferList[i].mNumberChannels = originalAudioBufferList[i].mNumberChannels
+            mutableAudioBufferList[i].mData = originalAudioBufferList[i].mData
+            mutableAudioBufferList[i].mDataByteSize = byteSize
         }
     }
 }

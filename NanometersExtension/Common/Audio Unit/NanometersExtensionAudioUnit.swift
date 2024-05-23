@@ -28,14 +28,14 @@ final class NanometersExtensionAudioUnit: AUAudioUnit {
     private func setupAudioBuses() throws {
         // Create the output bus first
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)
-        try outputBus = AUAudioUnitBus(format: format!)
+        outputBus = try AUAudioUnitBus(format: format!)
         outputBus.maximumChannelCount = 8
 
         // Create the input and output busses.
-        inputBus = BufferedInputBus(format: format!, maxChannels: 8)
+        inputBus = try BufferedInputBus(format: format!, maxChannels: 8)
 
         // Create the input and output bus arrays.
-        inputBusArray = .init(audioUnit: self, busType: .input, busses: [inputBus.bus!])
+        inputBusArray = .init(audioUnit: self, busType: .input, busses: [inputBus.bus])
 
         // then an array with it
         outputBusArray = .init(audioUnit: self, busType: .output, busses: [outputBus])
@@ -118,7 +118,7 @@ final class NanometersExtensionAudioUnit: AUAudioUnit {
         processHelper = ProcessHelper(kernel: kernel, inputChannelCount: inputChannelCount, outputChannelCount: outputChannelCount)
         self.kernel = kernel
 
-        inputBus.allocateRenderResources(maximumFramesToRender)
+        try inputBus.allocateRenderResources(maximumFramesToRender)
         try super.allocateRenderResources()
     }
 
@@ -136,7 +136,11 @@ final class NanometersExtensionAudioUnit: AUAudioUnit {
 
     override var internalRenderBlock: AUInternalRenderBlock {
         return { [unowned self] _, timestamp, frameCount, _, outputData, realtimeEventListHead, pullInputBlock in
-            guard let kernel, let processHelper else { return kAudioUnitErr_Uninitialized }
+            guard let kernel, let processHelper,
+                  let inAudioBufferList = inputBus.mutableAudioBufferList
+            else {
+                return kAudioUnitErr_Uninitialized
+            }
 
             var pullFlags = AudioUnitRenderActionFlags(rawValue: 0)
 
@@ -151,8 +155,6 @@ final class NanometersExtensionAudioUnit: AUAudioUnit {
                                          pullInputBlock: pullInputBlock)
 
             guard err == noErr else { return err }
-
-            let inAudioBufferList = UnsafeMutableAudioBufferListPointer(inputBus.mutableAudioBufferList!)
 
             /*
              Important:

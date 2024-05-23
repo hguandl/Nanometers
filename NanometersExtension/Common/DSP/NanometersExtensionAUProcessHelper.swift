@@ -6,17 +6,12 @@
 //
 
 import AudioToolbox
-import AVFoundation
 
-class ProcessHelper {
+final class ProcessHelper {
     private let kernel: NanometersExtensionDSPKernel
-//    private var inputBuffers: [UnsafePointer<Float>]
-//    private var outputBuffers: [UnsafeMutablePointer<Float>]
 
     init(kernel: NanometersExtensionDSPKernel, inputChannelCount: UInt32, outputChannelCount: UInt32) {
         self.kernel = kernel
-//        self.inputBuffers = .init(repeating: ., count: Int(inputChannelCount))
-//        self.outputBuffers = .init(repeating: [], count: Int(outputChannelCount))
     }
 
     private func callProcess(inBufferList: UnsafeMutableAudioBufferListPointer,
